@@ -4,7 +4,7 @@
 .App {
     width: 100vw;
     height: 100vh;
-    background: #fff;
+    background: whitesmoke;
     color: #212121;
     font-family: "Roboto", sans-serif;
     display: grid;
@@ -19,14 +19,22 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    justify-content: center;
+    gap: .7rem;
+    width: 25rem;
+    padding: 3rem 1rem;
+    border: 1px solid lightgrey;
+  }
+  .error {
+    border: 1px solid red;
   }
   
   .joinChatContainer h3 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin:0;
   }
   .joinChatContainer input {
-    width: 210px;
+    width: 93%;
     height: 40px;
     margin: 7px;
     text-indent: .5rem;
@@ -37,9 +45,9 @@
   }
   
   .joinChatContainer button {
-    width: 225px;
+    width: 95%;
     height: 50px;
-    margin: 7px;
+    margin: 0 auto;
     border: none;
     border-radius: 5px;
     padding: 5px;

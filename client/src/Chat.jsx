@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 const Chat = ({ socket, username, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
   const sendMessage = async (e) => {
-    e.preventDefault();
     if (currentMessage !== "") {
       const messageData = {
         room: room,
@@ -18,6 +18,8 @@ const Chat = ({ socket, username, room }) => {
       };
 
       await socket.emit("send_message", messageData);
+      setMessageList((list) => [...list, messageData]);
+      setCurrentMessage("");
     }
   };
 
@@ -32,16 +34,38 @@ const Chat = ({ socket, username, room }) => {
         <p>Live Chat</p>
       </div>
       <div className="chat-body">
-        {messageList.map((msg, id) => {
-          return <h2 key={id}>{msg.message}</h2>;
-        })}
+        <ScrollToBottom className="message-container">
+          {messageList.map((msg, id) => {
+            return (
+              <div
+                className="message"
+                id={username === msg.author ? "you" : "other"}
+                key={id}
+              >
+                <div>
+                  <div className="message-content">
+                    <p>{msg.message}</p>
+                  </div>
+                  <div className="message-meta">
+                    <p>{msg.author}</p>
+                    <p>{msg.time}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </ScrollToBottom>
       </div>
       <div className="chat-footer">
         <input
           type="text"
           placeholder="type here ..."
+          value={currentMessage}
           onChange={(e) => {
             setCurrentMessage(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            e.key === "Enter" && sendMessage();
           }}
         />
         <button onClick={sendMessage}>Send</button>
