@@ -2,17 +2,18 @@
  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 .App {
-    width: 100vw;
+    /* width: 100vw; */
     height: 100vh;
-    background: whitesmoke;
+    background: radial-gradient(whitesmoke,white);
     color: #212121;
     font-family: "Roboto", sans-serif;
     display: grid;
     place-items: center;
   }
-  body {
-    margin: 0%;
-    padding: 0%;
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
   }
   
   .joinChatContainer {
@@ -24,6 +25,8 @@
     width: 25rem;
     padding: 3rem 1rem;
     border: 1px solid lightgrey;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 3px lightgrey;
   }
   .error {
     border: 1px solid red;
@@ -62,16 +65,43 @@
   }
   
   .chat-window {
-    width: 300px;
-    height: 420px;
+    width: 100%;
+    height: auto;
+    border: 1px solid red;
+    
+  }
+  @media (width<700px){
+    .chat-window{
+      width: 100%;
+    }
   }
   
+  .chat-footer textarea {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0.7em;
+    font-size: 1em;
+    border-right: 1px dotted #607d8b;
+    outline: none;
+    font-family: "Open Sans", sans-serif;
+    resize: none;
+  }
+  
+  .btn_container{
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+    align-items: center;
+  }
   .chat-window p {
     margin: 0;
   }
   .chat-window .chat-header {
-    height: 45px;
-    border-radius: 6px;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 6px 6px 0 0;
     background: #263238;
     position: relative;
     cursor: pointer;
@@ -85,7 +115,7 @@
   }
   
   .chat-window .chat-body {
-    height: calc(450px - (45px + 70px));
+    height: 30rem;
     border: 1px solid #263238;
     background: #fff;
   
@@ -119,8 +149,7 @@
     align-items: center;
     margin-right: 5px;
     margin-left: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
+    padding: 0 .8rem;
     overflow-wrap: break-word;
     word-break: break-word;
   }
@@ -159,11 +188,14 @@
   
   .chat-window .chat-body .message .message-meta {
     display: flex;
+    gap: .4rem;
+
+    padding-left: .2rem;
     font-size: 12px;
   }
   
   .chat-window .chat-footer {
-    height: 40px;
+    height: 4rem;
     border: 1px solid #263238;
     border-top: none;
     display: flex;
@@ -171,7 +203,7 @@
   
   .chat-window .chat-footer input {
     height: 100%;
-    flex: 85%;
+    flex: 90%;
     border: 0;
     padding: 0 0.7em;
     font-size: 1em;
@@ -186,12 +218,13 @@
     display: grid;
     place-items: center;
     cursor: pointer;
-    flex: 15%;
+    flex: 10%;
+    
     height: 100%;
     background: transparent;
     outline: none;
     font-size: 25px;
-    color: lightgray;
+    color: rgb(187, 177, 177);
   }
   
   .chat-window .chat-footer button:hover {
@@ -200,3 +233,24 @@
   .hide {
     opacity: 0 !important;
   }
+
+  /* Reduce the width of the scrollbar */
+.chat-window .chat-body ::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Customize the appearance of the scrollbar track */
+.chat-window .chat-body ::-webkit-scrollbar-track {
+  background: rgb(236, 221, 221);
+}
+
+/* Customize the appearance of the scrollbar thumb */
+.chat-window .chat-body ::-webkit-scrollbar-thumb {
+  background: #a3a2a2;
+  border-radius: 3px;
+}
+
+/* On hover, change the color of the scrollbar thumb */
+.chat-window .chat-body ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

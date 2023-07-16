@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import "./App.css";
 
 const Chat = ({ socket, username, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -28,6 +31,7 @@ const Chat = ({ socket, username, room }) => {
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
+
   return (
     <div className="chat-window">
       <div className="chat-header">
@@ -57,18 +61,20 @@ const Chat = ({ socket, username, room }) => {
         </ScrollToBottom>
       </div>
       <div className="chat-footer">
-        <input
-          type="text"
-          placeholder="type here ..."
+        <textarea
+          placeholder="Type here ..."
           value={currentMessage}
-          onChange={(e) => {
-            setCurrentMessage(e.target.value);
-          }}
+          onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyDown={(e) => {
             e.key === "Enter" && sendMessage();
           }}
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage} className="send-button">
+          <div className="btn_container">
+            <FontAwesomeIcon icon={faPaperPlane} />
+            <p>Send</p>
+          </div>
+        </button>
       </div>
     </div>
   );
