@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
-const Chat = ({ socket, username, room }) => {
+const Chat = ({ socket, username, generatedId }) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
   const sendMessage = async (e) => {
     if (currentMessage !== "") {
       const messageData = {
-        room: room,
+        generatedId: generatedId,
         author: username,
         message: currentMessage,
         time:
