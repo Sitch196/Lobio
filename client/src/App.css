@@ -83,7 +83,7 @@
     border: 0;
     padding: 0.7em;
     font-size: 1em;
-    border-right: 1px dotted #607d8b;
+    border-right: 1px solid #607d8b;
     outline: none;
     font-family: "Open Sans", sans-serif;
     resize: none;
@@ -137,22 +137,8 @@
     display: flex;
   }
   
-  .chat-window .chat-body .message .message-content {
-    width: auto;
-    height: auto;
-    min-height: 50px;
-    max-width: 250px;
-    background-color: #43a047;
-    border-radius: 5px;
-    color: white;
-    display: flex;
-    align-items: center;
-    margin-right: 5px;
-    margin-left: 5px;
-    padding: .8rem;
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
+  
+  
   
   #you {
     justify-content: flex-start;
@@ -168,16 +154,16 @@
   }
   
   #other {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
   
   #other .message-content {
-    justify-content: flex-end;
+    justify-content: flex-start;
     background-color: cornflowerblue;
   }
   
   #other .message-meta {
-    justify-content: flex-end;
+    justify-content: flex-start;
     margin-right: 5px;
   }
   

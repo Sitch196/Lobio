@@ -7,13 +7,14 @@ import Navigation from "./components/Navigation";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
-
+import Copy from "./components/Copy";
 const socket = io.connect("http://localhost:3001");
 
 function App() {
   const [username, setUsername] = useState("");
   const [generatedId, setGeneratedId] = useState("");
   const [showChat, setShowChat] = useState(false);
+  const [copyValue, setCopyValue] = useState(false);
 
   const joinRoom = () => {
     if (username !== "" && generatedId !== "") {
@@ -44,6 +45,12 @@ function App() {
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
+    setCopyValue(true);
+
+    //reset copyValue back to false
+    setTimeout(() => {
+      setCopyValue(false);
+    }, 1000);
   };
 
   return (
@@ -66,20 +73,27 @@ function App() {
                   }}
                   onKeyPress={handleKeyPress}
                 />
-                <IdGeneratorContainer>
-                  <Generate onClick={generateId}>Generate</Generate>
-                  <Input
-                    type="text"
-                    placeholder="Generate Room ID"
-                    value={generatedId}
-                    onChange={(e) => {
-                      setGeneratedId(e.target.value);
-                    }}
-                  />
-                  <Copy onClick={copyToClipboard} disabled={!generatedId}>
-                    <FontAwesomeIcon icon={faCopy} />
-                  </Copy>
-                </IdGeneratorContainer>
+                {!copyValue ? (
+                  <IdGeneratorContainer>
+                    <Generate onClick={generateId}>Generate</Generate>
+                    <Input
+                      type="text"
+                      placeholder="Generate Room ID"
+                      value={generatedId}
+                      onChange={(e) => {
+                        setGeneratedId(e.target.value);
+                      }}
+                    />
+                    <CopyWrapper
+                      onClick={copyToClipboard}
+                      disabled={!generatedId}
+                    >
+                      <FontAwesomeIcon icon={faCopy} />
+                    </CopyWrapper>
+                  </IdGeneratorContainer>
+                ) : (
+                  <Copy />
+                )}
                 <button onClick={joinRoom} disabled={isButtonDisabled}>
                   Join a Room
                 </button>
@@ -135,7 +149,7 @@ const Generate = styled.div`
     transform: translateY(-1px);
   }
 `;
-const Copy = styled.div`
+const CopyWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
