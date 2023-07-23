@@ -1,15 +1,22 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane, faUpload } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPaperPlane,
+  faUpload,
+  faHome,
+} from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./context/GeneralContext";
 
-const Chat = ({ socket, username, generatedId }) => {
+const Chat = ({ socket }) => {
+  const { username, generatedId } = useContext(AuthContext);
   const [currentMessage, setCurrentMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [messageList, setMessageList] = useState([]);
-
+  const navigate = useNavigate();
   const sendMessage = () => {
     if (currentMessage.trim() !== "" || selectedImage) {
       const reader = new FileReader();
@@ -22,7 +29,7 @@ const Chat = ({ socket, username, generatedId }) => {
           image: base64Image,
           time: `${new Date().getHours()}:${new Date().getMinutes()}`,
         };
-
+        console.log(messageData);
         socket.emit("send_message", messageData);
         setMessageList((list) => [...list, messageData]);
         setCurrentMessage("");
@@ -50,13 +57,22 @@ const Chat = ({ socket, username, generatedId }) => {
     }
   }, [selectedImage]);
 
+  const goHome = () => {
+    navigate("/");
+  };
   const uploadInputRef = useRef(null);
 
   return (
-    <div className="chat-window">
-      <div className="chat-header">
+    <ChatWindow className="chat-window">
+      <ChatHeader className="chat-header">
         <p>Live Chat</p>
-      </div>
+        <FontAwesomeIcon
+          icon={faHome}
+          color="white"
+          onClick={goHome}
+          style={{ cursor: "pointer" }}
+        />
+      </ChatHeader>
       <div className="chat-body">
         <ScrollToBottom className="message-container">
           {messageList.map((msg, id) => {
@@ -121,14 +137,33 @@ const Chat = ({ socket, username, generatedId }) => {
           </div>
         </SendButton>
       </div>
-    </div>
+    </ChatWindow>
   );
 };
 
 export default Chat;
+const ChatWindow = styled.div`
+  height: 100vh;
+`;
 const MessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+const ChatHeader = styled.div`
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #263238;
+  position: relative;
+  padding: 0 2rem;
+  p {
+    display: block;
+    padding: 0 1em 0 2em;
+    color: #fff;
+    font-weight: 700;
+    line-height: 45px;
+  }
 `;
 const Message = styled.div`
   width: auto;
