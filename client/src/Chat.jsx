@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import logo from "./assets/lobio.png";
 import {
   faPaperPlane,
   faUpload,
   faHome,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 import styled from "styled-components";
@@ -14,9 +16,11 @@ import { AuthContext } from "./context/GeneralContext";
 const Chat = ({ socket }) => {
   const { username, generatedId } = useContext(AuthContext);
   const [currentMessage, setCurrentMessage] = useState("");
+  const [showDeleteIcon, setShowDeleteIcon] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [messageList, setMessageList] = useState([]);
   const navigate = useNavigate();
+  //////////////////////////////
   const sendMessage = () => {
     if (currentMessage.trim() !== "" || selectedImage) {
       const reader = new FileReader();
@@ -43,7 +47,9 @@ const Chat = ({ socket }) => {
       }
     }
   };
-
+  const deleteConversation = () => {
+    setMessageList([]);
+  };
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
@@ -65,13 +71,25 @@ const Chat = ({ socket }) => {
   return (
     <ChatWindow className="chat-window">
       <ChatHeader className="chat-header">
-        <p>Live Chat</p>
-        <FontAwesomeIcon
-          icon={faHome}
-          color="white"
-          onClick={goHome}
-          style={{ cursor: "pointer" }}
-        />
+        <Logo src={logo} alt="logo" width="60px" />
+        <IconWithLabel onClick={goHome}>
+          <FontAwesomeIcon
+            icon={faHome}
+            color="white"
+            style={{ cursor: "pointer" }}
+          />
+          <Label>Home</Label>
+        </IconWithLabel>
+        {!showDeleteIcon && (
+          <IconWithLabel onClick={deleteConversation}>
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              color="white"
+              style={{ cursor: "pointer" }}
+            />
+            <Label>Delete Conversation</Label>
+          </IconWithLabel>
+        )}
       </ChatHeader>
       <div className="chat-body">
         <ScrollToBottom className="message-container">
@@ -140,7 +158,6 @@ const Chat = ({ socket }) => {
     </ChatWindow>
   );
 };
-
 export default Chat;
 const ChatWindow = styled.div`
   height: 100vh;
@@ -253,5 +270,25 @@ const SendButton = styled.button`
 
   & p {
     margin-left: 5px;
+  }
+`;
+const IconWithLabel = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: 0.4s;
+  &:hover {
+    transform: translateY(-2px);
+  }
+`;
+const Logo = styled.img`
+  mix-blend-mode: exclusion;
+`;
+const Label = styled.label`
+  color: white;
+  cursor: pointer;
+  @media (width <600px) {
+    display: none;
   }
 `;

@@ -77,6 +77,7 @@ const Home = ({ socket }) => {
             onChange={(e) => {
               setGeneratedId(e.target.value);
             }}
+            onKeyPress={handleKeyPress}
           />
           <CopyWrapper onClick={copyToClipboard} disabled={!generatedId}>
             <FontAwesomeIcon icon={faCopy} />
