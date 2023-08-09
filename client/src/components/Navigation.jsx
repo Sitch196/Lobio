@@ -63,11 +63,14 @@ const ExplanationDiv = styled.div`
 `;
 
 const NavContainer = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
   position: fixed;
   top: 1rem;
+  @media (width<500px){
+    width: 95%;
+  }
 `;

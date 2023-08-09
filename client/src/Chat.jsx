@@ -82,6 +82,9 @@ const Chat = ({ socket }) => {
         </IconWithLabel>
         {!showDeleteIcon && (
           <IconWithLabel onClick={deleteConversation}>
+
+
+
             <FontAwesomeIcon
               icon={faTrashAlt}
               color="white"
@@ -91,7 +94,7 @@ const Chat = ({ socket }) => {
           </IconWithLabel>
         )}
       </ChatHeader>
-      <div className="chat-body">
+      <ChatBody className="chat-body">
         <ScrollToBottom className="message-container">
           {messageList.map((msg, id) => {
             return (
@@ -118,8 +121,8 @@ const Chat = ({ socket }) => {
             );
           })}
         </ScrollToBottom>
-      </div>
-      <div className="chat-footer">
+      </ChatBody>
+      <ChatFooter className="chat-footer">
         <Upload
           onClick={() => {
             // Trigger the file input when clicking on the Upload component
@@ -154,20 +157,37 @@ const Chat = ({ socket }) => {
             <p>Send</p>
           </div>
         </SendButton>
-      </div>
+      </ChatFooter>
     </ChatWindow>
   );
 };
 export default Chat;
 const ChatWindow = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 100vh;
 `;
+const ChatBody = styled.div`
+  flex: 1;
+  overflow-y: auto;
+
+`
+const ChatFooter = styled.div`
+    border: 1px solid #263238;
+  border-top: none;
+  display: flex;
+  height: 7rem;
+  @media (width<500px){
+    height: 4.5rem;
+  }
+
+`
 const MessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 const ChatHeader = styled.div`
-  height: 4rem;
+  height: 5.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -271,6 +291,7 @@ const SendButton = styled.button`
   & p {
     margin-left: 5px;
   }
+  
 `;
 const IconWithLabel = styled.div`
   display: flex;
