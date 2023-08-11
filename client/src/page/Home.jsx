@@ -56,8 +56,8 @@ const Home = ({ socket }) => {
   };
   return (
     <div className="joinChatContainer">
-      <h3>Join A Chat</h3>
-      <input
+      <h3>Join A Chat 📬</h3>
+      <Input
         type="text"
         maxLength="35"
         placeholder="Enter Your Name"
@@ -72,7 +72,7 @@ const Home = ({ socket }) => {
           <Generate onClick={generateId}>Generate</Generate>
           <Input
             type="text"
-            placeholder="Generate Room ID"
+            placeholder=" 👈 Generate Room ID"
             value={generatedId}
             onChange={(e) => {
               setGeneratedId(e.target.value);

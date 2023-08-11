@@ -3,7 +3,7 @@
 .App {
   width: 100%;
   height: 100vh;
-  background: radial-gradient(whitesmoke, white);
+  background: linear-gradient(to top, lightgrey, white, whitesmoke);
   color: #212121;
   font-family: "Roboto", sans-serif;
   display: grid;
@@ -21,11 +21,16 @@
   text-align: center;
   justify-content: center;
   gap: 0.9rem;
-  width: 25rem;
-  padding: 3rem 1rem;
+  width: 25%;
+  padding: 4rem 1rem;
   border: 1px solid lightgrey;
   border-radius: 4px;
   box-shadow: 0 0 10px 3px lightgrey;
+}
+@media (width<1500px) {
+  .joinChatContainer {
+    min-width: 25rem;
+  }
 }
 @media (width <500px) {
   .joinChatContainer {
@@ -37,7 +42,7 @@
 }
 
 .joinChatContainer h3 {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   margin: 0;
 }
 .joinChatContainer input {
@@ -177,17 +182,15 @@
 }
 
 .chat-window .chat-footer button {
-  border: 0;
   display: grid;
   place-items: center;
   cursor: pointer;
   flex: 10%;
 
   height: 100%;
-  background: transparent;
   outline: none;
   font-size: 25px;
-  color: rgb(187, 177, 177);
+  color: dodgerblue;
 }
 
 .chat-window .chat-footer button:hover {

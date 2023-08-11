@@ -82,9 +82,6 @@ const Chat = ({ socket }) => {
         </IconWithLabel>
         {!showDeleteIcon && (
           <IconWithLabel onClick={deleteConversation}>
-
-
-
             <FontAwesomeIcon
               icon={faTrashAlt}
               color="white"
@@ -170,18 +167,16 @@ const ChatWindow = styled.div`
 const ChatBody = styled.div`
   flex: 1;
   overflow-y: auto;
-
-`
+`;
 const ChatFooter = styled.div`
-    border: 1px solid #263238;
+  border: 1px solid #263238;
   border-top: none;
   display: flex;
   height: 7rem;
-  @media (width<500px){
+  @media (width<500px) {
     height: 4.5rem;
   }
-
-`
+`;
 const MessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -271,27 +266,16 @@ const SendButton = styled.button`
   display: flex;
   align-items: center;
   padding: 5px 10px;
-  background-color: #007bff;
+  background-color: whitesmoke;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 
-  &:hover {
-    background-color: #0056b3;
-  }
-
-  & .btn_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   & p {
     margin-left: 5px;
   }
-  
 `;
 const IconWithLabel = styled.div`
   display: flex;
