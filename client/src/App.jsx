@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import { useState } from "react";
 import Home from "./page/Home";
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://localhost:5000");
 
 function App() {
   return (
