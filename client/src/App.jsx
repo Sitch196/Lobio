@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import { useState } from "react";
 import Home from "./page/Home";
-const socket = io.connect("https://lobio-server.onrender.com");
+const socket = io.connect("https://lobio-ub5e.onrender.com/");
 
 function App() {
   return (

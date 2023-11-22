@@ -2,14 +2,16 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const cors = require("cors");
+app.use(cors());
+app.use(express.json());
+
 const { Server } = require("socket.io");
 
-app.use(cors());
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://lobio.vercel.app/",
+    origin: "https://lobio.vercel.app",
     methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
   },
 });
