@@ -20,20 +20,32 @@ const Chat = ({ socket }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [messageList, setMessageList] = useState([]);
   const navigate = useNavigate();
-  //////////////////////////////
+  /////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    const storedMessages = localStorage.getItem("chatMessages");
+    if (storedMessages) {
+      setMessageList(JSON.parse(storedMessages));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("chatMessages", JSON.stringify(messageList));
+  }, [messageList]);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   const sendMessage = () => {
     if (currentMessage.trim() !== "" || selectedImage) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64Image = reader.result; // Base64-encoded image
+        const base64Image = reader.result;
         const messageData = {
           generatedId: generatedId,
-          author: username,
+          author: localStorage.getItem("username"),
           message: currentMessage.trim(),
           image: base64Image,
           time: `${new Date().getHours()}:${new Date().getMinutes()}`,
         };
-        console.log(messageData);
         socket.emit("send_message", messageData);
         setMessageList((list) => [...list, messageData]);
         setCurrentMessage("");
@@ -64,6 +76,8 @@ const Chat = ({ socket }) => {
   }, [selectedImage]);
 
   const goHome = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("generatedId");
     navigate("/");
   };
   const uploadInputRef = useRef(null);

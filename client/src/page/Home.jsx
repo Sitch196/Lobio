@@ -20,6 +20,8 @@ const Home = ({ socket }) => {
 
   const joinRoom = () => {
     if (username !== "" && generatedId !== "") {
+      localStorage.setItem("username", username);
+      localStorage.setItem("generatedId", generatedId);
       socket.emit("join_room", generatedId);
       navigate("/chat");
     }
@@ -34,13 +36,11 @@ const Home = ({ socket }) => {
   const isButtonDisabled = username === "" || generatedId === "";
 
   const generateId = () => {
-    // Simple ID generation using Math.random(). This can be replaced with a more robust method if needed.
     const randomId = Math.random().toString(36).substring(2, 10);
     setGeneratedId(randomId);
   };
 
   const copyToClipboard = () => {
-    // Create a temporary input element to copy the ID to the clipboard
     const tempInput = document.createElement("input");
     tempInput.value = generatedId;
     document.body.appendChild(tempInput);
@@ -49,7 +49,6 @@ const Home = ({ socket }) => {
     document.body.removeChild(tempInput);
     setCopyValue(true);
 
-    //reset copyValue back to false
     setTimeout(() => {
       setCopyValue(false);
     }, 1000);
