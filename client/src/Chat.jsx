@@ -78,6 +78,7 @@ const Chat = ({ socket }) => {
   const goHome = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("generatedId");
+    localStorage.removeItem("chatMessages");
     navigate("/");
   };
   const uploadInputRef = useRef(null);
