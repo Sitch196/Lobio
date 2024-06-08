@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import Copy from "../components/Copy";
-
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/GeneralContext";
+
 const Home = ({ socket }) => {
   const navigate = useNavigate();
   const {
@@ -19,12 +19,14 @@ const Home = ({ socket }) => {
   } = useContext(AuthContext);
 
   const joinRoom = () => {
-    if (username !== "" && generatedId !== "") {
-      localStorage.setItem("username", username);
-      localStorage.setItem("generatedId", generatedId);
-      socket.emit("join_room", generatedId);
-      navigate("/chat");
+    if (username === "" || generatedId === "") {
+      alert("Oops, forgot to type username or credentials");
+      return;
     }
+    localStorage.setItem("username", username);
+    localStorage.setItem("generatedId", generatedId);
+    socket.emit("join_room", generatedId);
+    navigate("/chat");
   };
 
   const handleKeyPress = (e) => {
@@ -53,6 +55,7 @@ const Home = ({ socket }) => {
       setCopyValue(false);
     }, 1000);
   };
+
   return (
     <div className="joinChatContainer">
       <h3>Join A Chat 📬</h3>
@@ -85,29 +88,29 @@ const Home = ({ socket }) => {
       ) : (
         <Copy />
       )}
-      <button onClick={joinRoom} disabled={isButtonDisabled}>
-        Join a Room
-      </button>
+      <button onClick={joinRoom}>Join a Room</button>
     </div>
   );
 };
 
 export default Home;
+
 const IdGeneratorContainer = styled.div`
   display: flex;
   align-items: center;
-  /* margin-left: 0.4rem; */
   border-radius: 5px;
   border: 2px solid #43a047;
   width: 100%;
   height: 40px;
   background-color: #43a047;
 `;
+
 const Input = styled.input`
   &:focus {
     outline: none;
   }
 `;
+
 const Generate = styled.div`
   font-size: 0.9rem;
   color: white;
@@ -119,6 +122,7 @@ const Generate = styled.div`
     transform: translateY(-1px);
   }
 `;
+
 const CopyWrapper = styled.div`
   display: flex;
   align-items: center;

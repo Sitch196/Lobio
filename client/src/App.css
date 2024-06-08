@@ -22,10 +22,10 @@
   justify-content: center;
   gap: 0.9rem;
   width: 25%;
-  padding: 4rem 1rem;
+  padding: 3rem 1rem;
   border: 1px solid lightgrey;
   border-radius: 4px;
-  box-shadow: 0 0 10px 3px lightgrey;
+  box-shadow: 0 3px 5px lightgrey;
 }
 @media (width<1500px) {
   .joinChatContainer {
